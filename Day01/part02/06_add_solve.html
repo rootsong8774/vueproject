@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Component props emit</title>
+</head>
+    <body>
+    <div id="app">
+        <input type="text" v-model="x" v-on:input="updateLeftOperand">
+        <label>+</label>
+        <input type="text" v-model="y" v-on:input="updateRightOperand">
+        <label>=</label>
+        <label>{{result}}</label>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                result: 0
+            },
+            methods: {
+                updateLeftOperand: function() {
+                    this.result= parseInt(this.x)+parseInt(this.y);
+                },
+                updateRightOperand: function() {
+                    this.result= parseInt(this.x)+parseInt(this.y);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

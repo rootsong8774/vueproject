@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Component props emit</title>
+</head>
+    <body>
+    <div id="app">
+        <button v-on:click="toggle">show</button>
+        <h3 v-if="show">Hello Vue.js</h3>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+               show: true
+            },
+            methods: {
+                toggle: function() {
+                    this.show = !this.show;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

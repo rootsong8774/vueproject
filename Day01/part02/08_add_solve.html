@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Component props emit</title>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="x" v-on:input="operation">
+    <select v-model="operator" v-on:change="operation">
+        <option value="add">+</option>
+        <option value="sub">-</option>
+        <option value="mul">x</option>
+        <option value="div">/</option>
+    </select>
+    <input type="text" v-model="y" v-on:input="operation">
+    <label>=</label>
+    <label>{{ result }}</label>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+
+    new Vue({
+        el: '#app',
+        data: {
+            operator: 'add', result: 0
+        },
+        methods: {
+            operation: function () {
+                switch (this.operator) {
+                    case 'add':
+                        this.result = parseInt(this.x) + parseInt(this.y);
+                        break;
+                    case 'sub':
+                        this.result= parseInt(this.x) - parseInt(this.y);
+                        break;
+                    case 'mul':
+                        this.result= parseInt(this.x) * parseInt(this.y);
+                        break;
+                    case 'div':
+                        this.result= parseInt(this.x) / parseInt(this.y);
+                        break;
+
+                }
+
+            }
+
+        }
+    })
+
+
+</script>
+</body>
+</html>

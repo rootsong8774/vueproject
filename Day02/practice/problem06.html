@@ -1,0 +1,51 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue Templates quiz</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h3>
+                {{message}} <br>
+                {{anotherMessage}}
+            </h3>
+        </header>
+        <section>
+            <p v-bind:id="uid"></p>
+            <button @click="clickBtn">alert</button>
+            <button @click="clickBtn2">hi</button>
+
+            <ul v-if="flag">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+            </ul>
+        </section>
+    </div>
+
+    <script>
+        let app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue.js',
+                anotherMessage: 'Nice to meet you, Vue.js',
+                uid: 10,
+                flag: true
+            },
+            methods: {
+                clickBtn() {
+                    console.log("hi")
+                },
+                clickBtn2() {
+                    alert('greetings')
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.onload = function () {
+
+            if ('content' in document.createElement('template')) {
+                let template = document.querySelector('#productRow');
+                let tbody = document.querySelector('tbody');
+                let templateContent = document.importNode(template.content, true);
+                tbody.appendChild(templateContent);
+            } else {
+
+            }
+        }
+    </script>
+</head>
+<body>
+    <table id="productTable">
+        <thead><tr><th>code</th><th>name</th></tr></thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <template id="productRow">
+        <tr><td class="record">1001</td><td>Portable Monitor</td></tr>
+    </template>
+</body>
+</html>

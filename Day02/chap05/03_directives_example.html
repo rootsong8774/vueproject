@@ -1,0 +1,36 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue Template - Directives</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <a v-if="flag">Do it! Vue.js</a>
+        <ul>
+            <li v-for="system in systems">{{system}}</li>
+        </ul>
+        <p v-show="flag">Do it! Vue.js</p>
+        <h5 v-bind:id="uid">Vue intro</h5>
+        <button v-on:click="popupAlert">Alert button</button>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                flag: true,
+                systems: ['android', 'ios', 'window'],
+                uid: 10,
+            },
+            methods: {
+                popupAlert:function () {
+                    return alert('pop up alert');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

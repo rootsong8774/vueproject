@@ -8,38 +8,53 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
-    <div id="root">
-        <div>{{word}}</div>
-        <form v-on:submit="onSubmitForm">
-            <input type="text" v-model="value" ref="answer">
-            <button type="submit">입력!</button>
-        </form>
-        <div>{{result}}</div>
-    </div>
-    <script>
-        const app = new Vue({
-            el: '#root',
-            data: {
-                word: '제로초',
+<div id="root">
+    <word-relay start-word="제로초"></word-relay>
+    <word-relay start-word="초밥"></word-relay>
+    <word-relay start-word="vue"></word-relay>
+</div>
+<script>
+    Vue.component('word-relay', {
+        template: `
+          <div>
+              <div>{{ word }}</div>
+              <form v-on:submit="onSubmitForm">
+                <input type="text" v-model="value" ref="answer">
+                <button type="submit">입력!</button>
+              </form>
+              <div>{{ result }}</div>
+          </div>
+
+        `,
+        props:['startWord'],
+        data() {
+            return {
+                word: this.startWord,
                 result: '',
                 value: ''
-            },
-            methods: {
-                onSubmitForm(e) {
-                    e.preventDefault();
-                    if(this.word[this.word.length-1]===this.value[0]) {
-                        this.result = '정답';
-                        this.word = this.value;
-                        this.value = '';
-                        this.$refs.answer.focus();
-                    } else {
-                        this.result = '땡';
-                        this.value = '';
-                        this.$refs.answer.focus();
-                    }
+            };
+        },
+        methods: {
+            onSubmitForm(e) {
+                e.preventDefault();
+                if (this.word[this.word.length - 1] === this.value[0]) {
+                    this.result = '정답';
+                    this.word = this.value;
+                    this.value = '';
+                    this.$refs.answer.focus();
+                } else {
+                    this.result = '땡';
+                    this.value = '';
+                    this.$refs.answer.focus();
                 }
-            },
-        })
-    </script>
+            }
+        }
+    })
+</script>
+<script>
+    const app = new Vue({
+        el: '#root',
+    })
+</script>
 </body>
 </html>

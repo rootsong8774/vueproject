@@ -1,0 +1,49 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tutorial Todo List</title>
+    <link rel="stylesheet" href="main.css">
+
+</head>
+<body>
+<div id="app">
+    <h1>Tutorial Todo List</h1>
+    <label v-for="label in options">
+        <input type="radio" v-model="current" v-bind:value="label.value">{{label.label}}
+    </label>
+    ( {{computedTodos.length}} 건 표시 )
+    <table>
+        <thead>
+        <tr>
+            <th class="id">ID</th>
+            <th class="comment">What to do</th>
+            <th class="state">Status</th>
+            <th class="button">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="item in computedTodos" v-bind:key="item.id" v-bind:class="{done:item.state}">
+            <th>{{item.id +1}}</th>
+            <td>{{item.comment}}</td>
+            <td class="state"><button @click="doChangeState(item)">{{ labels[item.state] }}</button></td>
+            <td>
+                <button @click.ctrl="doRemove(item)">delete</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p>※삭제 버튼은 컨트롤 키를 누르면서 클릭해 주세요</p>
+    <h2>새로운 작업 추가</h2>
+    <form class="add-form" @submit.prevent="doAdd">
+        추가할 작업 <input type="text" ref="comment">
+        <button type="submit">추가</button>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

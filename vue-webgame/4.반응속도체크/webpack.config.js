@@ -11,9 +11,16 @@ module.exports = {
         app: path.join(__dirname, './main.js'), // __dirname은 현재 디렉토리
     },
     module: {
-        rules: [{
+        rules: [
+            {
             test: /\.vue$/, // 끝부분이 .vue인 것을 찾는 정규식 $가 끝부분을 의미함
             use: 'vue-loader'
+        },{
+            test: /\.css$/,
+            use: [
+                'vue-style-loader',
+                'css-loader',
+                ]
         }],
     },
     plugins: [
@@ -21,6 +28,7 @@ module.exports = {
     ],
     output: {
         filename: '[name].js',
-        path: path.join(__dirname, './dist')
+        path: path.join(__dirname, './dist'),
+        publicPath: "/dist",
     }
 }

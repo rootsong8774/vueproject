@@ -29,7 +29,9 @@
     <main>
         <div v-if="showProduct">
             <div>
-                <input type="text" v-model="minPrice">-<input type="text" v-model="maxPrice">
+                <input type="text" v-model="minPrice" @change="filterWithPrice">-<input type="text"
+                                                                                        v-model="maxPrice"
+                                                                                        @change="filterWithPrice">
                 <button type="submit" @click="filterWithPrice">Search</button>
             </div>
             <div v-for="product in sortedProducts">
@@ -164,6 +166,13 @@
 
 
 <script>
+    const compare = function (a, b) {
+        if (a.title.toLowerCase() < b.title.toLowerCase()) {
+            return -1;
+        }
+        return 1;
+    }
+
     let webstore = new Vue({
         el: '#app',
         data() {
@@ -191,6 +200,7 @@
                     NV: 'Nevada'
                 },
                 products: [],
+                filteredProducts: [],
                 cart: [],
                 showProduct: true
             }
@@ -248,41 +258,30 @@
             filterWithPrice() {
                 if (this.products.length > 0) {
                     minPrice = this.minPrice || 0;
-                    console.log(minPrice);
                     maxPrice = this.maxPrice || 1000;
 
-                    this.products.filter((product) => {
+                    this.filteredProducts = this.products.filter((product) => {
                         return ((product.price) / 100) > minPrice && ((product.price)
-                            / 100)< maxPrice
+                            / 100) < maxPrice
                     });
-                    console.log(this.products);
 
                 }
-            }
-
+            },
         },
         computed: {
             cartItemCount: function () {
                 return this.cart.length || '';
             },
             sortedProducts() {
-                if (this.products.length > 0) {
-                    let productsArray = this.products.slice(0);
 
-                    function compare(a, b) {
-                        if (a.title.toLowerCase() < b.title.toLowerCase()) {
-                            return -1;
-                        }
-                        if (a.title.toLowerCase() > b.title.toLowerCase()) {
-                            return 1;
-                        }
-                        return 0;
-                    }
-
+                if (this.filteredProducts.length == 0) {
+                    let productsArray = [...this.products];
+                    return productsArray.sort(compare);
+                } else if (this.filteredProducts.length > 0) {
+                    let productsArray = [...this.filteredProducts];
                     return productsArray.sort(compare);
                 }
             },
-
 
         }
     });

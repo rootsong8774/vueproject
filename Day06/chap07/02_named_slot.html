@@ -1,0 +1,49 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <form-component>
+            <h1>{{header}}</h1>
+            <label slot="titleSlot">{{titleLabel}}</label>
+            <label slot="authorSlot">{{authorLabel}}</label>
+        </form-component>
+    </div>
+    <script>
+        const  FormComponent = {
+            template:
+                    `<div>
+                        <form>
+                            <slot></slot>
+                          <slot name="titleSlot"></slot>
+                            <input type="text" id="title"/><br>
+                          <slot name="authorSlot"></slot>
+                            <input type="text" id="author"/><br>
+                            <button>Submit</button>
+                        </form>
+                    </div>`,
+            props: ['title', 'author']
+
+        }
+
+        new Vue({
+            el: '#app',
+            components: {'form-component': FormComponent},
+            data() {
+                return {
+                    titleLabel: 'The Title:',
+                    authorLabel: 'The Author :',
+                    header: 'Book Author Form'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

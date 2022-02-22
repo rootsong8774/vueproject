@@ -1,0 +1,46 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        {{counter}}<br>
+        <button @click="incrementCounter">Increment Counter</button>
+        <my-component @increment-me="incrementCounter"></my-component>
+
+    </div>
+    <script>
+        const MyComponent = {
+            template: '<div><button @click="childIncrementCounter">Increment From Child</button> </div>',
+            methods: {
+                childIncrementCounter() {
+                    this.$emit('increment-me');
+                }
+            }
+        };
+
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+                incrementCounter() {
+                    this.counter++;
+                }
+            },
+            components: {'my-component' : MyComponent},
+
+        });
+    </script>
+</body>
+</html>

@@ -209,7 +209,11 @@
             axios.get('data/products.json').then((response) => {
                 this.products = response.data.products;
                 console.log(this.products);
-            })
+                return this.products;
+            }).then((products) => {
+                this.filteredProducts = [...this.products];
+            });
+            ;
         },
         filters: {
             formatPrice: function (price) {
@@ -273,14 +277,9 @@
                 return this.cart.length || '';
             },
             sortedProducts() {
-
-                if (this.filteredProducts.length == 0) {
-                    let productsArray = [...this.products];
-                    return productsArray.sort(compare);
-                } else if (this.filteredProducts.length > 0) {
-                    let productsArray = [...this.filteredProducts];
-                    return productsArray.sort(compare);
-                }
+                let productsArray;
+                productsArray = [...this.filteredProducts];
+                return productsArray.sort(compare);
             },
 
         }

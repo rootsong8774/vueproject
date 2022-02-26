@@ -43,28 +43,23 @@
 
 <script>
 import MyHeader from './Header'
+import {mapGetters} from 'vuex';
 export default {
   name: "iMain",
   data() {
     return {
-      products: {},
       cart: [],
     }
   },
   components: {MyHeader},
   created() {
-      axios.get('static/products.json').then((response) => {
-        this.products = response.data.products;
-        console.log(this.products);
-      });
+      this.$store.dispatch('initStore')
+
     }
   ,
   methods: {
     addToCart(aProduct) {
       this.cart.push(aProduct.id);
-    },
-    showCheckout() {
-      this.showProduct = this.showProduct ? false : true;
     },
     submitForm() {
       alert('Submitted')
@@ -104,8 +99,11 @@ export default {
       }
     }
   },
-
   computed: {
+    ...mapGetters(['products']),
+    products() {
+      return this.$store.getters.products
+    },
     cartItemCount: function () {
       return this.cart.length || '';
     },

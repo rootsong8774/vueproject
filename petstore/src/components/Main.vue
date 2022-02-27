@@ -1,8 +1,15 @@
 <template>
   <div>
-    <my-header :cartItemCount="cartItemCount"></my-header>
+    <my-header :cartItemCount="cartItemCount" :routeToPush="routeToPush"></my-header>
     <main>
+      <div class="col-md-6 col-md-offset-3">
+        <input type="text" v-model="minPrice" @change="filterWithPrice"> - <input type="text"
+                                                                                  v-model="maxPrice"
+                                                                                  @change="filterWithPrice">
+        <button type="submit" @click="filterWithPrice">Search</button>
+      </div>
       <div v-for="product in sortedProducts">
+
         <div class="row">
           <div class="col-md-5 col-md-offset-0">
             <figure>
@@ -12,7 +19,8 @@
           <div class="col-md-6 col-md-offset-0 description">
             <router-link
               tag="h1"
-              :to="{ name : 'Id', params: {id: product.id} }">{{product.title}}</router-link>
+              :to="{ name : 'Id', params: {id: product.id} }">{{ product.title }}
+            </router-link>
             <p v-html="product.description"></p>
             <p class="price">{{ product.price |  formatPrice }}</p>
             <button class="btn btn-primary btn-lg" @click="addToCart(product)"
@@ -42,20 +50,25 @@
 </template>
 
 <script>
+
 import MyHeader from './Header'
-import {mapGetters} from 'vuex';
+import {mapGetters, mapState} from 'vuex';
+import {SET_FILTER} from "../store/module/products";
+
 export default {
   name: "iMain",
   data() {
     return {
+      minPrice: 0,
+      maxPrice: 500.00,
       cart: [],
+      routeToPush: 'Form',
     }
   },
   components: {MyHeader},
   created() {
-      this.$store.dispatch('initStore')
-
-    }
+    this.$store.dispatch('initStore')
+  }
   ,
   methods: {
     addToCart(aProduct) {
@@ -79,6 +92,18 @@ export default {
     canAddToCart(aProduct) {
       return aProduct.availableInventory > this.cartCount(aProduct.id);
     },
+    filterWithPrice() {
+      if (this.products.length > 0) {
+        let minPrice = this.minPrice || 0;
+        let maxPrice = this.maxPrice || 1000;
+
+        this.$store.commit(SET_FILTER, this.products.filter((product) => {
+          return ((product.price) / 100) > minPrice && ((product.price)
+            / 100) < maxPrice
+        }));
+
+      }
+    },
   },
   filters: {
     formatPrice: function (price) {
@@ -100,15 +125,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['products']),
-    products() {
-      return this.$store.getters.products
-    },
+    ...mapGetters(['products', 'filteredProducts']),
     cartItemCount: function () {
       return this.cart.length || '';
     },
     sortedProducts() {
-      let productsArray = [...this.products];
+      let productsArray = [...this.filteredProducts];
       let compare = function (a, b) {
         if (a.title.toLowerCase() < b.title.toLowerCase()) {
           return -1;

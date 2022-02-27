@@ -166,6 +166,7 @@
 
 
 <script>
+
     const compare = function (a, b) {
         if (a.title.toLowerCase() < b.title.toLowerCase()) {
             return -1;
@@ -213,7 +214,7 @@
             }).then((products) => {
                 this.filteredProducts = [...this.products];
             });
-            ;
+
         },
         filters: {
             formatPrice: function (price) {

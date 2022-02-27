@@ -1,6 +1,6 @@
 <template>
   <div>
-    <my-header :cartItemCount="cartItemCount"></my-header>
+    <my-header :cartItemCount="cartItemCount" :route-to-push="routerToPush"></my-header>
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
         <div class="panel panel-info">
@@ -121,6 +121,7 @@ export default {
         sendGift: 'Send As A Gift',
         dontSendGift: 'Do Not Send As A Gift'
       },
+      routerToPush: 'iMain'
     }
   },
   components: {MyHeader},

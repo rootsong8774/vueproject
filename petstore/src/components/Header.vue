@@ -3,7 +3,7 @@
     <div class="navbar navbar-default">
       <div class="navbar-header">
         <h1>
-          <router-link :to="{name: 'iMain'}">
+          <router-link :to="{name : 'iMain'}">
             {{ sitename }}
           </router-link>
         </h1>
@@ -13,9 +13,9 @@
           active-class="active"
           tag="button"
           class="btn btn-default btn-lg"
-          :to="{name: 'Form'}"><span
+          :to="{name: `${routeToPush}`}"><span
           class="glyphicon glyphicon-shopping-cart">
-          {{ cartItemCount }}
+           {{ cartItemCount }}
         </span> Checkout</router-link>
       </div>
     </div>
@@ -28,9 +28,10 @@ export default {
   data() {
     return {
       sitename: "Vue.js Pet Depot",
+
     }
   },
-  props: ['cartItemCount'],
+  props: ['cartItemCount', 'routeToPush'],
   methods: {
     showCheckout() {
       this.$router.push({name: 'Form'});

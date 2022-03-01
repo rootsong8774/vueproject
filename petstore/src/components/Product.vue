@@ -35,8 +35,9 @@ export default {
   created() {
     axios.get('/static/products.json').then((response) => {
       this.product = response.data.products.filter (
-        data=> data.id === this.$route.params.id)[0]
-      this.product.image = '/' + this.product.image;
+        data=> data.id == this.$route.params.id)[0]
+      this.product.image = '/'+ this.product.image;
+
     });
   },
   methods: {
